@@ -8,9 +8,9 @@ self.addEventListener('activate', () => {
     });
   };
 
-	setInterval(() => {
+  setInterval(() => {
     fetch('/api/')
       .then((response) => response.json())
       .then(onSuccess);
-	}, 30*60*1000);
+  }, 30*60*1000);
 });
