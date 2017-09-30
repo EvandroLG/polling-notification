@@ -1,4 +1,7 @@
+let hasNotification = false;
+
 self.addEventListener('install', (e) => e.waitUntil(self.skipWaiting()));
+self.addEventListener('message', (e) => hasNotification = e.data.notification.hasPermission);
 
 self.addEventListener('activate', () => {
   let onSuccess = (data) => {
@@ -9,8 +12,10 @@ self.addEventListener('activate', () => {
   };
 
   setInterval(() => {
+    if (!hasNotification) { return; }
+
     fetch('/api/')
       .then((response) => response.json())
       .then(onSuccess);
-  }, 30*60*1000);
+  }, 10000);
 });
